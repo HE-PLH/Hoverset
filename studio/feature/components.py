@@ -2,7 +2,7 @@ from functools import partial
 from tkinter import BooleanVar
 
 from hoverset.ui.icons import get_icon_image
-from hoverset.ui.widgets import ScrolledFrame, Frame, Label, Spinner, EventMask, Button
+from hoverset.ui.widgets import ScrolledFrame, Frame, Label, Spinner, EventMask, Button, Hyperlink
 from hoverset.ui.windows import DragWindow
 from studio.feature._base import BaseFeature
 from studio.feature.design import Designer

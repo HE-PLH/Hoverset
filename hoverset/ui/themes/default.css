@@ -257,3 +257,9 @@
 .dark_pane_vertical{
     orient: vertical;
 }
+
+
+.hyperlink{
+    activeforeground: blue;
+    state: active;
+}

@@ -12,6 +12,7 @@ All gui manifestation should strictly use hoverset widget set for easy maintenan
 import dataclasses
 import functools
 import logging
+import webbrowser
 import tkinter as tk
 import tkinter.tix as tix
 import tkinter.ttk as ttk
@@ -2010,6 +2011,33 @@ class ProgressBar(Widget, tk.Canvas):
             raise ValueError(f"{color} is not a valid tk color")
 
 
+class Hyperlink(Label):
+    # TODO ADD HYPERLINK TO COMPONENTS
+    def __init__(self, master=None, **cnf):
+        super().__init__(master)
+
+        self.label = Label(self, **cnf)
+        self.label.pack()
+        self.label.config(**self.style.hyperlink)
+        self.config(**cnf)
+        self.bind("<Enter>", self._underline)
+        self.bind('<Leave>', self._no_underline)
+        self.label.bind("<Button-1>", self._open_in_browser)
+
+    def _underline(self, event=None):
+        self._font = font.Font(self.label, self.label.cget('font'))
+        self._font.configure(underline=True)
+        self.label.configure(font=self._font)
+
+    def _no_underline(self, event=None):
+        self._font = font.Font(self.label, self.cget('font'))
+        self.label.configure(font=self._font)
+
+    def _open_in_browser(self, event):
+        if self.label['text']:
+            webbrowser.open(self.label['text'])
+
+
 if __name__ == "__main__":
     r = Application()
     r.load_styles("themes/default.css")
@@ -2019,10 +2047,9 @@ if __name__ == "__main__":
 
     class CompoundItem(CompoundList.BaseItem):
 
-        def render(self):
-            Label(self, **self.style.dark_text_accent_1, text=self.value).pack(side="top", anchor="w")
-            Label(self, **self.style.dark_text, text=len(self.value)).pack(side="top", anchor="w")
-
+      def render(self):
+         Label(self, **self.style.dark_text_accent_1, text=self.value).pack(side="top", anchor="w")
+         Label(self, **self.style.dark_text, text=len(self.value)).pack(side="top", anchor="w")
 
     box = CompoundList(frame)
     box.pack(fill="both", expand=True)

@@ -15,6 +15,7 @@ from PIL import Image, ImageTk
 _module_directory = os.path.dirname(os.path.abspath(__file__))
 _image_locations = os.path.join(_module_directory, "files", "image")
 
+
 # We want to enable memoization to reduce the number of times we read the image database
 # An image can be accessed multiple times in the application lifetime hence a cache can improve performance greatly
 @functools.lru_cache()
